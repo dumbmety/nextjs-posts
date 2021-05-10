@@ -8,6 +8,13 @@ const theme = extendTheme({
       },
     },
   },
+  components: {
+    Heading: {
+      baseStyle: {
+        fontFamily: 'Inter',
+      },
+    },
+  },
 })
 
 export default theme
