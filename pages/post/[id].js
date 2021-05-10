@@ -1,4 +1,12 @@
-import { Flex, Text, Heading, VStack, Link } from '@chakra-ui/react'
+import {
+  Flex,
+  Heading,
+  Link,
+  ListItem,
+  Text,
+  UnorderedList,
+  VStack,
+} from '@chakra-ui/react'
 import Layout from '../../components/Layout'
 import http from '../../utils/http'
 
@@ -18,11 +26,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const { data: post } = await http.get(`/posts/${params.id}`)
   const { data: author } = await http.get(`/users/${post.userId}`)
+  const { data: comments } = await http.get(`/comments?postId=${params.id}`)
 
-  return { props: { author, post } }
+  return { props: { author, post, comments } }
 }
 
-export default function Post({ author, post }) {
+export default function Post({ author, post, comments }) {
   return (
     <Layout>
       <VStack mb={6} spacing={3} alignItems="flex-start">
@@ -49,7 +58,7 @@ export default function Post({ author, post }) {
       <Text mb={6} colro="gray.700">
         {post.body}
       </Text>
-      <Flex alignItems="center">
+      <Flex mb={3} alignItems="center">
         <svg width={24} height={24} viewBox="0 0 24 24" fill="#CBD5E0">
           <path d="M20 2H4C2.897 2 2 2.897 2 4v18l5.333-4H20c1.103 0 2-0.897 2-2V4C22 2.897 21.103 2 20 2z M20 16H6.667L4 18V4h16V16z" />
         </svg>
@@ -57,6 +66,13 @@ export default function Post({ author, post }) {
           Comments
         </Heading>
       </Flex>
+      <UnorderedList>
+        {comments.map(({ id, name: comment }) => (
+          <ListItem key={id} color="gray.600" _hover={{ color: 'gray.900' }}>
+            {comment}
+          </ListItem>
+        ))}
+      </UnorderedList>
     </Layout>
   )
 }
