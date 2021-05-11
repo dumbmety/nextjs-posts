@@ -49,7 +49,7 @@ export default function Post({ author, post, comments }) {
           <Link
             color="teal.500"
             fontWeight={500}
-            href={`mailto:${author.website}`}
+            href={`mailto:${author.email}`}
           >
             {author.name}
           </Link>

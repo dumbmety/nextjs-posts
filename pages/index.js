@@ -23,9 +23,9 @@ export default function Home({ posts }) {
       <Layout home>
         <Grid
           as="ul"
-          listStyleType="none"
-          templateColumns="repeat(2, 1fr)"
           gap={6}
+          listStyleType="none"
+          templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
         >
           {posts.map(({ id, title }) => (
             <Post key={id} id={id} title={title} />
