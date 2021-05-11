@@ -4,7 +4,8 @@ import { Box, Text, Link } from '@chakra-ui/react'
 export default function Post({ id, title }) {
   const router = useRouter()
 
-  function handleClick() {
+  function gotoPost(event) {
+    event.preventDefault()
     router.push(`/post/${id}`)
   }
 
@@ -19,7 +20,7 @@ export default function Post({ id, title }) {
       borderWidth={1}
       borderStyle="solid"
       borderColor="gray.200"
-      onClick={handleClick}
+      onClick={gotoPost}
       transitionDuration="0.2s"
       _hover={{ boxShadow: 'xl' }}
     >
@@ -33,7 +34,7 @@ export default function Post({ id, title }) {
       >
         {title}
       </Text>
-      <Link color="teal.500" fontWeight={500}>
+      <Link color="teal.500" fontWeight={500} onClick={gotoPost}>
         Read more...
       </Link>
     </Box>
